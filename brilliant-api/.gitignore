@@ -1,4 +1,4 @@
 **/.env
-**/brilliant-venv
+**/venv
 **/.vscode
 **/__pycache__
