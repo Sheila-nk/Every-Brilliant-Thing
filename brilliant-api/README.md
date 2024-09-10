@@ -23,12 +23,6 @@
 
 `GET http://127.0.0.1:8000/brilliant_thing/`
 
-### Request body
-```json
-{
-  "entry": "Hot cocoa on a rainy day"
-}
-```
 ### Response
 ```json
 {
