@@ -1,13 +1,12 @@
-from sqlalchemy import Column, Integer, String, DateTime
-from datetime import datetime
-from database import Base
+from tortoise import fields
+from tortoise.models import Model
 
 
-# Create SQLAlchemy models from the Base class
-class BrilliantThing(Base):
-    __tablename__ = "brilliant_things"
+class BrilliantThing(Model):
+    id = fields.IntField(primary_key=True)
+    entry = fields.CharField(max_length=1000)
+    date_posted = fields.DatetimeField(auto_now=True)
 
-    id = Column(Integer, primary_key=True)
-    entry = Column(String)
-    date_posted = Column(DateTime, default=datetime.utcnow)
+    def __str__(self):
+        return self.entry
 

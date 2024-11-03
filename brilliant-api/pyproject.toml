@@ -1,0 +1,4 @@
+[tool.aerich]
+tortoise_orm = "brilliant_api.database.TORTOISE_ORM"
+location = "./migrations"
+src_folder = "./."

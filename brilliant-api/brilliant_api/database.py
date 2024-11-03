@@ -1,16 +1,27 @@
-import os
+from fastapi import FastAPI
+from tortoise.contrib.fastapi import register_tortoise
 
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from .config import settings
 
-SQLALCHEMY_DATABASE_URL = os.environ['SQLALCHEMY_DATABASE_URL']
 
-# Create an SQLAlchemy engine
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+TORTOISE_ORM = {
+    "connections": {
+        "default": settings.DATABASE_URL_TEST if settings.TESTING else settings.DATABASE_URL
+    },
+    "apps": {
+        "models": {
+            "models": ["brilliant_api.models", "aerich.models"],
+            "default_connection": "default",
+        },
+    },
+    "use_tz": False
+}
 
-# Create a SessionLocal class. Each instance of the SessionLocal class will be a database session. 
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# Create a Base class. We will inherit from this class to create each of the database models.
-Base = declarative_base()
+def init_db(app: FastAPI) -> None:
+    register_tortoise(
+        app,
+        config=TORTOISE_ORM,
+        modules={"models": ["brilliant_api.models", "aerich.models"]},
+        generate_schemas=True,
+        add_exception_handlers=True,
+    )
