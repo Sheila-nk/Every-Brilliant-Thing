@@ -6,7 +6,7 @@ from .config import settings
 
 TORTOISE_ORM = {
     "connections": {
-        "default": settings.DATABASE_URL_TEST if settings.TESTING else settings.DATABASE_URL
+        "default": settings.DATABASE_URL
     },
     "apps": {
         "models": {

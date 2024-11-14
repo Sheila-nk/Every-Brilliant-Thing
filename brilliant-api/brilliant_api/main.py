@@ -1,4 +1,5 @@
 import uvicorn
+import os
 
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import JSONResponse
@@ -29,4 +30,4 @@ async def read_brilliant_thing():
     
     
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, port=int(os.environ.get("PORT", 8080)), host="0.0.0.0")
